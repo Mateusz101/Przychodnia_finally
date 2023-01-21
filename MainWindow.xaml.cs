@@ -98,7 +98,6 @@ namespace Przychodnia_finally
         }
         private void Zaloguj_Button_Click(object sender, RoutedEventArgs e)
         {
-            int ad = p.Konta.Count;
             if (Login_Text.Text.Length > 0 && PasswordHidden.Password.Length == 0)
             {
                 MessageBox.Show("Pole hasło nie może być puste!");

@@ -12,17 +12,15 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Tworzenie_Konta_Pacjenta : Window
     {
-        Placówka p = new();
+        Placówka p;
         public Tworzenie_Konta_Pacjenta()
         {
-            p = Placówka.OdczytDC("przychodnia.xml");
+            p = new();
             InitializeComponent();
         }
         public Tworzenie_Konta_Pacjenta(Placówka placowka) : this()
         {
             p = placowka;
-            int l = p.Konta.Count;
-            string m = "";
         }
         //Funkcja przycisku reset
         private void ResetButton_Click(object sender, RoutedEventArgs e)
