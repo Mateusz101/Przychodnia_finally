@@ -20,14 +20,14 @@ namespace Przychodnia_finally
 
     public partial class MainWindow : Window
     {
-        Placówka p;
+        Placowka p;
         public MainWindow()
         {
             p = new();
             InitializeComponent();
         }
 
-        public MainWindow(Placówka placówka) : this()
+        public MainWindow(Placowka placówka) : this()
         {
             p = placówka;
         }
@@ -74,12 +74,12 @@ namespace Przychodnia_finally
         private void MenuOtworz_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Plik XML (*.xml)|*.xml";
-            bool? result= openFileDialog.ShowDialog();
+            openFileDialog.Filter = "Plik XML (.xml)|.xml";
+            bool? result = openFileDialog.ShowDialog();
             if (result == true)
             {
                 string filePath = openFileDialog.FileName;
-                p = Placówka.OdczytDC(filePath);
+                p = Placowka.OdczytDC(filePath);
             }
         }
         private void ShowPasswordFunction()
@@ -98,6 +98,7 @@ namespace Przychodnia_finally
         }
         private void Zaloguj_Button_Click(object sender, RoutedEventArgs e)
         {
+            int ad = p.Konta.Count;
             if (Login_Text.Text.Length > 0 && PasswordHidden.Password.Length == 0)
             {
                 MessageBox.Show("Pole hasło nie może być puste!");
@@ -120,7 +121,7 @@ namespace Przychodnia_finally
                     this.Visibility = Visibility.Hidden;
                     objSecondWindow.Show();
                 }
-                
+
                 else if (p.Konta.ContainsKey(Login_Text.Text))
                 {
                     if (p.Konta[Login_Text.Text] == PasswordUnmask.Text.ToString() || p.Konta[Login_Text.Text] == password.ToString())
@@ -167,6 +168,20 @@ namespace Przychodnia_finally
                 {
                     MessageBox.Show("Złe hasło!");
                 }
+            }
+        }
+        private void MyTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                PasswordHidden.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown2(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Zaloguj_Button_Click(sender, e);
             }
         }
     }

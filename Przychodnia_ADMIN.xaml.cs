@@ -26,14 +26,14 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Przychodnia_ADMIN : Window
     {
-        Placówka p;
+        Placowka p;
         public Przychodnia_ADMIN()
         {
             p = new();
             InitializeComponent();
         }
 
-        public Przychodnia_ADMIN(Placówka placowka) : this()
+        public Przychodnia_ADMIN(Placowka placowka) : this()
         {
             p = placowka;
             WidocznoscWizyt(true);

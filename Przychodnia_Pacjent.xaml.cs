@@ -14,7 +14,7 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Przychodnia_Pacjent : Window
     {
-        Placówka p;
+        Placowka p;
         Pacjent ZalogowanyPacjent = new();
 
         public Przychodnia_Pacjent()
@@ -28,13 +28,13 @@ namespace Przychodnia_finally
             Lista.ItemsSource = new ObservableCollection<Wizyta>(p.WizytyPacjenta(ZalogowanyPacjent.Pesel));
         }
 
-        public Przychodnia_Pacjent(Placówka placowka, string login) : this()
+        public Przychodnia_Pacjent(Placowka placowka, string login) : this()
         {
             ZalogowanyPacjent = placowka.Pacjenci.Find(p => p.Pesel == login);
             p = placowka;
             WidocznoscVisit(true);
         }
-        public Przychodnia_Pacjent(Placówka placowka, string login, string haslo, string typ) : this(placowka, login)
+        public Przychodnia_Pacjent(Placowka placowka, string login, string haslo, string typ) : this(placowka, login)
         {
             WidocznoscVisit(false);
             WidocznoscInformations(true);
@@ -321,6 +321,7 @@ namespace Przychodnia_finally
                 else
                 {
                     Plec.Text = "Woman";
+                    Zdjecie.Source = new BitmapImage(new Uri(@"/woman2.png", UriKind.Relative));
                 }
             }
             else

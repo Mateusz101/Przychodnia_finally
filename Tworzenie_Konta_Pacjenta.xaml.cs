@@ -12,13 +12,13 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Tworzenie_Konta_Pacjenta : Window
     {
-        Placówka p;
+        Placowka p = new();
         public Tworzenie_Konta_Pacjenta()
         {
-            p = new();
+            p = Placowka.OdczytDC("przychodnia.xml");
             InitializeComponent();
         }
-        public Tworzenie_Konta_Pacjenta(Placówka placowka) : this()
+        public Tworzenie_Konta_Pacjenta(Placowka placowka) : this()
         {
             p = placowka;
         }
@@ -93,7 +93,9 @@ namespace Przychodnia_finally
                         {
                             MessageBox.Show("Added successfully");
                             p.DodajPacjenta(p1);
-                            return;
+                            MainWindow objSecondWindow = new MainWindow(p);
+                            this.Visibility = Visibility.Hidden;
+                            objSecondWindow.Show();
                         }
                         else
                         {
@@ -118,7 +120,9 @@ namespace Przychodnia_finally
                         {
                             MessageBox.Show("Added successfully");
                             p.DodajPacjenta(p1);
-                            return;
+                            MainWindow objSecondWindow = new MainWindow(p);
+                            this.Visibility = Visibility.Hidden;
+                            objSecondWindow.Show();
                         }
 
                         else
@@ -137,7 +141,9 @@ namespace Przychodnia_finally
                         {
                             MessageBox.Show("Added successfully");
                             p.DodajPacjenta(p2);
-                            return;
+                            MainWindow objSecondWindow = new MainWindow(p);
+                            this.Visibility = Visibility.Hidden;
+                            objSecondWindow.Show();
                         }
                         else
                         {
@@ -162,7 +168,9 @@ namespace Przychodnia_finally
                         {
                             MessageBox.Show("Added successfully");
                             p.DodajPacjenta(p2);
-                            return;
+                            MainWindow objSecondWindow = new MainWindow(p);
+                            this.Visibility = Visibility.Hidden;
+                            objSecondWindow.Show();
                         }
 
                         else
@@ -196,5 +204,48 @@ namespace Przychodnia_finally
             PasswordHidden.Visibility = Visibility.Visible;
             Eye_Close.Source = new BitmapImage(new Uri(@"/oko.png", UriKind.Relative));
         }
+        private void MyTextBox_KeyDown1(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Nazwisko.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown2(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Data_Urodzenia.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown3(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Pesel.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown4(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Plec.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown5(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                PasswordHidden.Focus();
+            }
+        }
+        private void MyTextBox_KeyDown6(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ZapiszButton_Click(sender, e);
+            }
+        }
+
     }
 }

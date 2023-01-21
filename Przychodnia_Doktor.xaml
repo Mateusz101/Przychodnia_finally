@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Przychodnia_finally"
         mc:Ignorable="d"
-        Title="Przychodnia_Doktor" Height="450" Width="800">
+        Title="Przychodnia_Doktor" Height="460" Width="800">
     <Grid>
         <!--menu-->
         <Label HorizontalAlignment="Left" Height="456" VerticalAlignment="Center" Width="311" Background="#FF4D82A4"/>

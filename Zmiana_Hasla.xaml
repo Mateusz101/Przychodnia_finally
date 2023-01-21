@@ -23,11 +23,11 @@
             <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="Old password:" Grid.Row="1" Grid.Column="1" />
-        <PasswordBox x:Name="OldPassword" Grid.Column="2" Grid.Row="1" />
+        <PasswordBox x:Name="OldPassword" KeyDown="MyTextBox_KeyDown" Grid.Column="2" Grid.Row="1" />
         <TextBlock Text="New password:" Grid.Row="3" Grid.Column="1" />
-        <PasswordBox x:Name="NewPassword" Grid.Row="3" Grid.Column="2" />
+        <PasswordBox x:Name="NewPassword" KeyDown="MyTextBox_KeyDown2" Grid.Row="3" Grid.Column="2" />
         <TextBlock Text="Repeat password:" Grid.Row="5" Grid.Column="1" />
-        <PasswordBox x:Name="RepeatPassword" Grid.Row="5" Grid.Column="2" />
+        <PasswordBox x:Name="RepeatPassword" Grid.Row="5" KeyDown="MyTextBox_KeyDown3" Grid.Column="2" />
         <Button x:Name="ChangePassword" Content="Change password" Grid.Row="6" Grid.Column="2" Click="ChangePassword_Click" Background="#FF5EB718" />
         <Button x:Name="Back" Content="Back" Grid.Row="6" Grid.Column="1" Click="Back_Click" Background="#FFD03C3C" />
     </Grid>

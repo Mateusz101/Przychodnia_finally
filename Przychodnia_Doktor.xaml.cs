@@ -22,7 +22,7 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Przychodnia_Doktor : Window
     {
-        Placówka p;
+        Placowka p;
         Lekarz ZalogowanyLekarz = new();
 
         public Przychodnia_Doktor()
@@ -35,13 +35,13 @@ namespace Przychodnia_finally
             WidocznoscProfilu(false);
         }
 
-        public Przychodnia_Doktor(Placówka placowka, string login) : this()
+        public Przychodnia_Doktor(Placowka placowka, string login) : this()
         {
             p = placowka;
             ZalogowanyLekarz = placowka.Lekarze.Find(p => p.Pesel == login);
 
         }
-        public Przychodnia_Doktor(Placówka placowka, string login, string haslo, string typ) : this(placowka, login)
+        public Przychodnia_Doktor(Placowka placowka, string login, string haslo, string typ) : this(placowka, login)
         {
             WidocznoscAppointments(false);
             WidocznoscWydaniaRecepty(false);
@@ -69,7 +69,7 @@ namespace Przychodnia_finally
             this.Visibility = Visibility.Hidden;
             objSecondWindow.Show();
         }
-        
+
         //MENU (lewa strona)
         private void BtnWizytyMENU_Click(object sender, RoutedEventArgs e)
         {
@@ -87,7 +87,7 @@ namespace Przychodnia_finally
             WidocznoscAppointments(false);
             WidocznoscWydaniaRecepty(true);
             Pacjenci_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizytyDanegoLekarza(ZalogowanyLekarz.Pesel));
-            
+
         }
 
 
@@ -154,13 +154,13 @@ namespace Przychodnia_finally
         private void WidocznoscWydaniaRecepty(bool visibility)
         {
             if (!visibility)
-            { 
+            {
                 BtnSzukajPesel.Visibility = Visibility.Hidden;
                 BtnZaakceptujDiagnoze.Visibility = Visibility.Hidden;
                 LblChoroba.Visibility = Visibility.Hidden;
                 LblPESEL.Visibility = Visibility.Hidden;
                 LblRecepta.Visibility = Visibility.Hidden;
-                Pacjenci_ListBox.Visibility= Visibility.Hidden;
+                Pacjenci_ListBox.Visibility = Visibility.Hidden;
                 TxtBoxChoroba.Visibility = Visibility.Hidden;
                 TxtBoxPesel.Visibility = Visibility.Hidden;
                 TxtBoxRecepta.Visibility = Visibility.Hidden;
@@ -168,20 +168,20 @@ namespace Przychodnia_finally
             else
             {
                 BtnSzukajPesel.Visibility = Visibility.Visible;
-                BtnZaakceptujDiagnoze.Visibility= Visibility.Visible;
+                BtnZaakceptujDiagnoze.Visibility = Visibility.Visible;
                 LblRecepta.Visibility = Visibility.Visible;
                 LblPESEL.Visibility = Visibility.Visible;
-                LblChoroba.Visibility= Visibility.Visible;
-                Pacjenci_ListBox.Visibility= Visibility.Visible;
-                TxtBoxRecepta.Visibility= Visibility.Visible;
-                TxtBoxPesel.Visibility= Visibility.Visible; 
+                LblChoroba.Visibility = Visibility.Visible;
+                Pacjenci_ListBox.Visibility = Visibility.Visible;
+                TxtBoxRecepta.Visibility = Visibility.Visible;
+                TxtBoxPesel.Visibility = Visibility.Visible;
                 TxtBoxChoroba.Visibility = Visibility.Visible;
             }
         }
 
         private void WidocznoscProfilu(bool visibility)
         {
-            if (!visibility) 
+            if (!visibility)
             {
                 pola.Visibility = Visibility.Hidden;
                 pola1.Visibility = Visibility.Hidden;
@@ -201,33 +201,33 @@ namespace Przychodnia_finally
             }
             else
             {
-                pola.Visibility= Visibility.Visible;
-                pola1.Visibility= Visibility.Visible;
-                pola2.Visibility= Visibility.Visible;
-                pola3.Visibility= Visibility.Visible;
-                pola4.Visibility= Visibility.Visible;
-                pola5.Visibility= Visibility.Visible;
+                pola.Visibility = Visibility.Visible;
+                pola1.Visibility = Visibility.Visible;
+                pola2.Visibility = Visibility.Visible;
+                pola3.Visibility = Visibility.Visible;
+                pola4.Visibility = Visibility.Visible;
+                pola5.Visibility = Visibility.Visible;
                 Imie.Visibility = Visibility.Visible;
                 Nazwisko.Visibility = Visibility.Visible;
                 Pesel.Visibility = Visibility.Visible;
-                Data_Urodzenia.Visibility= Visibility.Visible;
-                Plec.Visibility= Visibility.Visible;
+                Data_Urodzenia.Visibility = Visibility.Visible;
+                Plec.Visibility = Visibility.Visible;
                 Zdjecieplec.Visibility = Visibility.Visible;
-                moj_Profil.Visibility= Visibility.Visible;
-                Change_Button.Visibility= Visibility.Visible;
-                PasswordHidden.Visibility= Visibility.Visible;
+                moj_Profil.Visibility = Visibility.Visible;
+                Change_Button.Visibility = Visibility.Visible;
+                PasswordHidden.Visibility = Visibility.Visible;
             }
         }
 
         private void WidocznoscHistorii(bool visibility)
         {
-            if (visibility) 
+            if (visibility)
             {
-                BtnPeselHistoria.Visibility= Visibility.Visible;
-                LblPacjenci.Visibility= Visibility.Visible;
+                BtnPeselHistoria.Visibility = Visibility.Visible;
+                LblPacjenci.Visibility = Visibility.Visible;
                 TxtBoxSzukajPeselHistoria.Visibility = Visibility.Visible;
                 WszyscyPacjenci_ListBox.Visibility = Visibility.Visible;
-                Historia_ListBox.Visibility= Visibility.Visible;
+                Historia_ListBox.Visibility = Visibility.Visible;
             }
             else
             {
@@ -267,7 +267,7 @@ namespace Przychodnia_finally
 
         private void BtnWizytaWDniu_Click(object sender, RoutedEventArgs e)
         {
-            if(calendar.SelectedDate.HasValue)
+            if (calendar.SelectedDate.HasValue)
             {
                 DateTime data = calendar.SelectedDate.Value.Date;
                 WizytyLekarza_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.LekarzWDanymDniu(ZalogowanyLekarz.Pesel, data));
@@ -278,7 +278,7 @@ namespace Przychodnia_finally
         {
             WizytyLekarza_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizytyDanegoLekarza(ZalogowanyLekarz.Pesel));
         }
-        
+
         //Prescription
         private void BtnSzukajPesel_Click(object sender, RoutedEventArgs e)
         {
@@ -290,11 +290,11 @@ namespace Przychodnia_finally
 
         private void BtnZaakceptujDiagnoze_Click(object sender, RoutedEventArgs e)
         {
-            if(Pacjenci_ListBox.SelectedIndex > -1 && TxtBoxRecepta.Text.Length > 0 && TxtBoxRecepta.Text.Length > 0) 
+            if (Pacjenci_ListBox.SelectedIndex > -1 && TxtBoxRecepta.Text.Length > 0 && TxtBoxRecepta.Text.Length > 0)
             {
-        
+
                 p.ZakonczWizyte(new(Pacjenci_ListBox.SelectedItem as Wizyta, TxtBoxChoroba.Text.ToString(), TxtBoxRecepta.Text.ToString()));
-                
+
                 MessageBox.Show("Confirmed.");
 
 
@@ -313,7 +313,7 @@ namespace Przychodnia_finally
         {
             Pacjent pacjent = new();
 
-            if(WszyscyPacjenci_ListBox.SelectedIndex > -1)
+            if (WszyscyPacjenci_ListBox.SelectedIndex > -1)
             {
                 pacjent = WszyscyPacjenci_ListBox.SelectedItem as Pacjent;
                 if (pacjent.HistoriaWizyt.Count == 0)
@@ -326,10 +326,10 @@ namespace Przychodnia_finally
                 }
             }
 
-            if(p.Pacjenci.Find(p=>p.Pesel==TxtBoxSzukajPeselHistoria.Text.ToString())!=null)
+            if (p.Pacjenci.Find(p => p.Pesel == TxtBoxSzukajPeselHistoria.Text.ToString()) != null)
             {
                 pacjent = p.Pacjenci.Find(p => p.Pesel == TxtBoxSzukajPeselHistoria.Text.ToString());
-                if(pacjent.HistoriaWizyt.Count == 0)
+                if (pacjent.HistoriaWizyt.Count == 0)
                 {
                     Historia_ListBox.ItemsSource = null;
                 }
@@ -339,7 +339,7 @@ namespace Przychodnia_finally
                 }
             }
         }
-        
+
         //Information
         private void Change_Button_Click(object sender, RoutedEventArgs e)
         {

@@ -39,9 +39,9 @@
                 <SolidColorBrush Color="#FFF4F4F4" Opacity="0"/>
             </Button.BorderBrush>
         </Button>
-        <Image Margin="124,88,124,213" Source="/ATlas logo.jpg"/>
-        <TextBox x:Name="Login_Text" HorizontalAlignment="Left" Height="22" Margin="105,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" />
-        <PasswordBox x:Name="PasswordHidden"  Margin="105,247,50,89"/>
+        <Image Margin="124,88,124,213" Source="/ATlas logo.jpg" Stretch="Fill"/>
+        <TextBox x:Name="Login_Text" KeyDown="MyTextBox_KeyDown" HorizontalAlignment="Left" Height="22" Margin="105,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" />
+        <PasswordBox x:Name="PasswordHidden" KeyDown="MyTextBox_KeyDown2"  Margin="105,247,50,89"/>
         <TextBox x:Name="PasswordUnmask" TextWrapping="Wrap" Text="TextBox" Margin="105,247,50,89" Visibility="Hidden"/>
         <Image x:Name="Eye_Close" HorizontalAlignment="Left" Height="19" Margin="268,249,0,0" VerticalAlignment="Top" Width="20" Source="/oko.png" 
                PreviewMouseDown="ShowPassword_PreviewMouseDown" PreviewMouseUp="ShowPassword_PreviewMouseUp" MouseLeave="ShowPassword_MouseLeave" RenderTransformOrigin="12.7,-2.453"/>
