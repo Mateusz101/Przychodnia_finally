@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Przychodnia_finally
 {
     /// <summary>
-    /// Interaction logic for Zmiana_Hasla.xaml
+    /// W klasie Zmiana_Hasla tworzymy pola Placowka p oraz pole Pacjent ZalogowanyPacjent jak i ZalogowanyLekarz. Tworzymy istancję Pacjenta oraz Lekarza.
     /// </summary>
     public partial class Zmiana_Hasla : Window
     {
@@ -24,10 +24,20 @@ namespace Przychodnia_finally
         Pacjent ZalogowanyPacjent = new();
         Lekarz ZalogowanyLekarz = new();
 
+        /// <summary>
+        ///  Konstruktor nieparametryczny tworzący istancję placowki, ładuję skompilowaną stronę.
+        /// </summary>
         public Zmiana_Hasla()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// KOnstruktor parametryczny posiadający argumenty placowka oraz pacjent. Jeżeli Lekarz chce zmienić hasło to przypisujemy jego obiekt do
+        /// zalogowanego lekarza, natomiast kiedy jest to pacjent to przypisujemy pacjenta do zalogowanego pacjenta.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="pacjent"></param>
         public Zmiana_Hasla(Placowka p, Osoba pacjent) : this()
         {
             this.p = p;
@@ -40,6 +50,13 @@ namespace Przychodnia_finally
                 ZalogowanyPacjent = pacjent as Pacjent;
             }
         }
+
+        /// <summary>
+        /// Funkcja odpowiedzialna za końcową zmianę hasła dla pacjenta lub lekarza tylko wtedy gdy wszystkie warunki są spełnione. W przypadku niespełnienia warunków
+        /// dostajemy odpowiednie komunikaty.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             if (OldPassword.Password == "" || NewPassword.Password == "" || RepeatPassword.Password == "")
@@ -86,6 +103,12 @@ namespace Przychodnia_finally
                 }
             }
         }
+
+        /// <summary>
+        /// Funkcja odpowiedzialna za powrót do okna konta pacjenta lub lekarza.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             if (ZalogowanyLekarz.Imie != string.Empty)
@@ -100,9 +123,13 @@ namespace Przychodnia_finally
                 this.Visibility = Visibility.Hidden;
                 objSecondWindow.Show();
             }
-
-
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -110,6 +137,12 @@ namespace Przychodnia_finally
                 NewPassword.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown2(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -117,6 +150,12 @@ namespace Przychodnia_finally
                 RepeatPassword.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown3(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

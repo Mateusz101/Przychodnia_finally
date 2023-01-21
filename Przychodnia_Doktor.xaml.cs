@@ -18,13 +18,18 @@ using System.Windows.Shapes;
 namespace Przychodnia_finally
 {
     /// <summary>
-    /// Interaction logic for Przychodnia.xaml
+    /// Klasa odpowiadająca za okienko dla zalogowanego lekarza.
     /// </summary>
+    /// 
+
     public partial class Przychodnia_Doktor : Window
     {
         Placowka p;
         Lekarz ZalogowanyLekarz = new();
 
+        /// <summary>
+        /// Domyślny konstruktor tworzący obiekt "p" oraz wyświetlający okienko, w którym można zobaczyć zaplanowane wizyty.
+        /// </summary>
         public Przychodnia_Doktor()
         {
             p = new();
@@ -35,12 +40,25 @@ namespace Przychodnia_finally
             WidocznoscProfilu(false);
         }
 
+        /// <summary>
+        /// Konstruktor biorący argument placówka (aby wprowadzane wcześniej dane nie zostały utracone) oraz pesel, który umożliwia określenie nam, kto się zalogował.
+        /// </summary>
+        /// <param name="placowka"></param>
+        /// <param name="login"></param>
         public Przychodnia_Doktor(Placowka placowka, string login) : this()
         {
             p = placowka;
             ZalogowanyLekarz = placowka.Lekarze.Find(p => p.Pesel == login);
 
         }
+        /// <summary>
+        /// Konstruktor, w którym to chcemy zobaczyć profil lekarza jako pierwszy wraz z jego wartościami takimi jak imie, nazwisko, itd.
+        /// </summary>
+        /// <param name="placowka"></param>
+        /// <param name="login"></param>
+        /// <param name="haslo"></param>
+        /// <param name="typ"></param>
+        /// 
         public Przychodnia_Doktor(Placowka placowka, string login, string haslo, string typ) : this(placowka, login)
         {
             WidocznoscAppointments(false);
@@ -62,7 +80,11 @@ namespace Przychodnia_finally
             }
         }
 
-
+        /// <summary>
+        /// Przycisk służący do wylogowania danego lekarza przekazując argument "p" do MainWindow, aby zmienione dane nie zostały utracone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void wylogowanie_Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow objSecondWindow = new MainWindow(p);
@@ -70,7 +92,11 @@ namespace Przychodnia_finally
             objSecondWindow.Show();
         }
 
-        //MENU (lewa strona)
+        /// <summary>
+        /// Po przyciśnięciu pokazuje nam wszystkie zaplanowane wizyty lekarza wraz z różnymi przyciskami.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWizytyMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscWydaniaRecepty(false);
@@ -80,6 +106,11 @@ namespace Przychodnia_finally
             WizytyLekarza_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizytyDanegoLekarza(ZalogowanyLekarz.Pesel));
         }
 
+        /// <summary>
+        /// Po przyciśnięciu pokazuje nam okienko, w którym lekarz będzie wydawał receptę dla określonego pacjenta.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWydajRecepteMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscProfilu(false);
@@ -90,6 +121,11 @@ namespace Przychodnia_finally
 
         }
 
+        /// <summary>
+        /// Przycisk wywołujący okienko z informacjami danego lekarza.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void BtnInformacjeMENU_Click(object sender, RoutedEventArgs e)
         {
@@ -112,6 +148,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk wywołujący możliwość sprawdzenia historii diagnoz określonego pacjenta.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnHistoriaPacjentowMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscAppointments(false);
@@ -129,6 +170,10 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Widoczność textboxów, list, itd. odpowiadających za wizyty
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscAppointments(bool visibility)
         {
             if (!visibility)
@@ -151,6 +196,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Widoczność textboxów, list, itd. odpowiadających za wydawanie recepty
+        /// </summary>
+        /// <param name="visibility"></param>
+        /// 
         private void WidocznoscWydaniaRecepty(bool visibility)
         {
             if (!visibility)
@@ -179,6 +229,10 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Widoczność textboxów, list, itd. odpowiadających za profil lekarza
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscProfilu(bool visibility)
         {
             if (!visibility)
@@ -219,6 +273,10 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Widoczność textboxów, list, itd. odpowiadających za diagnozy pacjentów
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscHistorii(bool visibility)
         {
             if (visibility)
@@ -240,7 +298,11 @@ namespace Przychodnia_finally
 
         }
 
-        //Appointments
+        /// <summary>
+        /// Sortuje nam wszystkie wizyty (najpierw po dacie, potem po godzinie)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSortujWizyty_Click(object sender, RoutedEventArgs e)
         {
 
@@ -252,6 +314,11 @@ namespace Przychodnia_finally
 
         }
 
+        /// <summary>
+        /// Po wciśnięciu przycisku usuwa nam wizytę z danym pacjentem danego dnia.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUsun_Wizyte_Click(object sender, RoutedEventArgs e)
         {
             if (WizytyLekarza_ListBox.SelectedIndex > -1)
@@ -265,6 +332,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Po wciśnięciu pokazuje nam wizyty lekarza w danym dniu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWizytaWDniu_Click(object sender, RoutedEventArgs e)
         {
             if (calendar.SelectedDate.HasValue)
@@ -274,12 +346,21 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Po wciśnięciu pokazuje nam wszystkie wizyty.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWszystkieWizyty_Click(object sender, RoutedEventArgs e)
         {
             WizytyLekarza_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizytyDanegoLekarza(ZalogowanyLekarz.Pesel));
         }
 
-        //Prescription
+        /// <summary>
+        /// Po wciśnięciu pokazuje nam pacjenta o określonym numerze pesel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSzukajPesel_Click(object sender, RoutedEventArgs e)
         {
             if (TxtBoxPesel.Text.Length > 0)
@@ -288,6 +369,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Po wciśnięciu, usuwa nam wizytę z listy wizyt oraz lekarz wydaje recepte dla danego pacjenta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnZaakceptujDiagnoze_Click(object sender, RoutedEventArgs e)
         {
             if (Pacjenci_ListBox.SelectedIndex > -1 && TxtBoxRecepta.Text.Length > 0 && TxtBoxRecepta.Text.Length > 0)
@@ -308,7 +394,11 @@ namespace Przychodnia_finally
             }
         }
 
-        //History
+        /// <summary>
+        /// Ukazuje nam historie diagnóz dla danego pacjenta o określonym numerze pesel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnPeselHistoria_Click(object sender, RoutedEventArgs e)
         {
             Pacjent pacjent = new();
@@ -339,8 +429,12 @@ namespace Przychodnia_finally
                 }
             }
         }
-
-        //Information
+        /// <summary>
+        /// Po wciśnięciu, przekierowuje nas do okienka, w którym możemy zmienić hasło.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        
         private void Change_Button_Click(object sender, RoutedEventArgs e)
         {
             Zmiana_Hasla objSecondWindow = new Zmiana_Hasla(p, ZalogowanyLekarz);

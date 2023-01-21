@@ -22,17 +22,22 @@ using System.Windows.Shapes;
 namespace Przychodnia_finally
 {
     /// <summary>
-    /// Interaction logic for Przychodnia.xaml
+    /// Okno wyświetlające się po zalogowaniu się jako admin.
     /// </summary>
     public partial class Przychodnia_ADMIN : Window
     {
         Placowka p;
+      
         public Przychodnia_ADMIN()
         {
             p = new();
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Kontruktor biorący za argument placowke. Po wywołaniu kontruktora pokazuje się okno z wizytami.
+        /// </summary>
+        /// <param name="placowka"></param>
         public Przychodnia_ADMIN(Placowka placowka) : this()
         {
             p = placowka;
@@ -43,6 +48,11 @@ namespace Przychodnia_finally
             WidocznoscDodaniaLekarza(false);
         }
 
+        /// <summary>
+        /// Wylogowanie się przez admina, przekazywany jest argument placowka do kontstruktora okna MainWindow.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void wylogowanie_Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow objSecondWindow = new MainWindow(p);
@@ -51,7 +61,11 @@ namespace Przychodnia_finally
         }
 
 
-
+        /// <summary>
+        /// Po kliknieciu w przycisk Doctors pokazuje sie nam widocznosc przyciskow, kontrolek, itd oraz lista pacjentow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDoktorzyMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscLekarz(true);
@@ -65,6 +79,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Po kliknieciu w przycisk All apointments pokazują się nam wszystkie wizyty wraz z innymi przyciskami, textboxami.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWszystkiewizytyMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscWizyt(true);
@@ -76,7 +95,11 @@ namespace Przychodnia_finally
             Wizyty_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizyty());
 
         }
-
+        /// <summary>
+        /// Wyswietla nam się okno z pacjentami wraz z przyciskami, textboxami.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnPatientsMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscWizyt(false);
@@ -88,6 +111,11 @@ namespace Przychodnia_finally
             Pacjenci_ListBox.ItemsSource = new ObservableCollection<Pacjent>(p.Pacjenci);
         }
 
+        /// <summary>
+        /// Przycisk odpowiada za usuniecie konktetnej wizyty jeśli zaznaczona jest ta wizyta w listboxie. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUsunWizyte_Click(object sender, RoutedEventArgs e)
         {
             if (Wizyty_ListBox.SelectedIndex > -1)
@@ -100,7 +128,12 @@ namespace Przychodnia_finally
                 l.Zaplanowane_Wizyty.Remove(new Tuple<DateTime, TimeSpan>(w.Data, w.Godzina));
             }
         }
-
+        
+        /// <summary>
+        /// Funkcja odpowiadajaca za widocznosc konkretnych textboxow, przyciskow, itd.
+        /// </summary>
+        /// <param name="visibility"></param>
+        
         public void WidocznoscWizyt(bool visibility)
         {
             if (visibility)
@@ -122,6 +155,12 @@ namespace Przychodnia_finally
                 BtnUsunWizyte.Visibility = Visibility.Hidden;
             }
         }
+
+        /// <summary>
+        /// Funkcja odpowiadajaca za widocznosc konkretnych textboxow, przyciskow, itd.
+        /// </summary>
+        /// <param name="visibility"></param>
+
 
         public void WidocznoscLekarz(bool visibility)
         {
@@ -146,6 +185,12 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Funkcja odpowiadajaca za widocznosc konkretnych textboxow, przyciskow, itd.
+        /// </summary>
+        /// <param name="visibility"></param>
+
+
         public void WidocznoscPacjent(bool visibility)
         {
             if (visibility)
@@ -168,6 +213,11 @@ namespace Przychodnia_finally
                 BtnUsunpacj.Visibility = Visibility.Hidden;
             }
         }
+
+        /// <summary>
+        /// Funkcja odpowiadajaca za widocznosc konkretnych textboxow, przyciskow, itd.
+        /// </summary>
+        /// <param name="visibility"></param>
 
         public void WidocznoscAddPacjent(bool visibility)
         {
@@ -210,6 +260,12 @@ namespace Przychodnia_finally
                 Plec.Visibility = Visibility.Hidden;
             }
         }
+
+        /// <summary>
+        /// Przycisk odpowiadający za ukazanie wizyt w konkretnym dniu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDate_Click(object sender, RoutedEventArgs e)
         {
             if (calendar1.SelectedDate != null)
@@ -218,11 +274,21 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadajacy za pokazanie wszystkich wizyt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAllApp_Click(object sender, RoutedEventArgs e)
         {
             Wizyty_ListBox.ItemsSource = new ObservableCollection<Wizyta>(p.WszystkieWizyty());
         }
 
+        /// <summary>
+        /// Przycisk odpowiadajacy za usuniecie doktora, związanego z nim wizyt oraz konta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUsundoc_Click(object sender, RoutedEventArgs e)
         {
             if (Doktorzy_ListBox.SelectedIndex > -1)
@@ -234,6 +300,12 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadający za pokazanie wszystkich doktorów w listboxie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void BtnAllDocs_Click(object sender, RoutedEventArgs e)
         {
             if (p.Lekarze.Count() > 0)
@@ -242,6 +314,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadajacy za wyszukanie doktora o określonym peselu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnPesel_Click(object sender, RoutedEventArgs e)
         {
             if (Txtboxpesel.Text.Length > 0 && Txtboxpesel.Text != "Write pesel there")
@@ -250,6 +327,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadający za usunięcie pacjęta wraz z jego wizytami oraz kontem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUsunpacj_Click(object sender, RoutedEventArgs e)
         {
             if (Pacjenci_ListBox.SelectedIndex > -1)
@@ -274,6 +356,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadający za wyszukanie pacjenta o danym peselu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnPeselpac_Click(object sender, RoutedEventArgs e)
         {
             if (Txtboxpeselpac.Text.Length > 0 && Txtboxpeselpac.Text != "Write pesel there")
@@ -282,42 +369,77 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk odpowiadający za ukazanie wszystkich pacjentów
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAllPat_Click(object sender, RoutedEventArgs e)
         {
             Pacjenci_ListBox.ItemsSource = new ObservableCollection<Pacjent>(p.Pacjenci);
         }
 
+        /// <summary>
+        /// Przycisk resetujący dane wprowadzone.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void ZapiszButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// Ustawia wartość w Textboxie na ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void Click_Imie(object sender, RoutedEventArgs e)
         {
             TxtBoxImie.Text = "";
         }
+
+        /// <summary>
+        /// Ustawia wartość w Textboxie na ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void Click_Nazwisko(object sender, RoutedEventArgs e)
         {
             TxtBoxNazwisko.Text = "";
         }
+
+        /// <summary>
+        /// Ustawia wartość w Textboxie na ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void Click_DataUrodzenia(object sender, RoutedEventArgs e)
         {
             TxtBoxData_Urodzenia.Text = "";
         }
+
+        /// <summary>
+        /// Ustawia wartość w Textboxie na ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void Click_Pesel(object sender, RoutedEventArgs e)
         {
             TxtBoxPesel.Text = "";
         }
-        private void Click_Haslo(object sender, RoutedEventArgs e)
-        {
 
-        }
+        /// <summary>
+        /// Po kliknięciu zmienia nam widoczność poszczególnych textboxów, napisów, itd. ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
+ 
         private void BtnDodajPacjentaMENUClick(object sender, RoutedEventArgs e)
         {
             WidocznoscAddPacjent(true);
@@ -327,6 +449,11 @@ namespace Przychodnia_finally
             WidocznoscDodaniaLekarza(false);
         }
 
+        /// <summary>
+        /// Po kliknięciu zmienia nam widoczność poszczególnych textboxów, napisów, itd. ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDodajLekarzaMENU_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscAddPacjent(false);
@@ -336,7 +463,11 @@ namespace Przychodnia_finally
             WidocznoscDodaniaLekarza(true);
         }
 
-
+        /// <summary>
+        /// Resetuje nam wartości z Textboxów imie, nazwisko, dataurodzenia i pesel na  ""
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             TxtBoxImie.Text = "";
@@ -344,6 +475,14 @@ namespace Przychodnia_finally
             TxtBoxData_Urodzenia.Text = "";
             TxtBoxPesel.Text = "";
         }
+
+        /// <summary>
+        /// Przycisk odpowiadający za dodanie nowego pacjenta. Jeśli istnieje pacjent o takim peselu, to nie tworzy nam pacjenta wraz z kontem.
+        /// Jeśli istnieje lekarz o danym peselu i nie istnieje pacjent, to jeśli dane wprowadzone do textboxów są odpowiednio takie same jak atrybuty lekarza, to dodaje nam pacjenta, lecz nie tworzy nam nowego konta
+        /// (czyli będziemy mogli zalogować się z tego samego pesela i hasła na konto pacjent i lekarz. Natomiast jeśli nie istnieje pacjent i lekarz o danym peselu, to tworzy nam konto wraz z pacjentem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void BtnAddPat_Click(object sender, RoutedEventArgs e)
         {
@@ -462,6 +601,14 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Funkcja sprawdza nam, czu godzina spełnia określone warunki.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns>Zwraca nam fałsz, jeśli godzina wykracza poza godziny, w których przychodnia pracuje. Fałsz zwraca nam też, gdy nie przekonwertuje nam wartości na timespan lub godzina nie jest typu 15:00 i 15:30, a np. 15:34.
+        /// W innym przypadku zwraca nam prawdę.</returns>
+
         private bool SprawdzGodzine(string t1, string t2)
         {
             if (t1 == "" && t2 == "")
@@ -493,6 +640,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Funkcja zamienia nam czas ze stringa na timespan. Jeśli wartością jest "", to zwraca nam 12:00.
+        /// </summary>
+        /// <param name="czas"></param>
+        /// <returns></returns>
         private TimeSpan zamianaczasu(string czas)
         {
             TimeSpan t = new();
@@ -509,6 +661,15 @@ namespace Przychodnia_finally
                 return t;
             }
         }
+
+        /// <summary>
+        /// Najbardziej zaawansowany przycisk w programie. Jeśli dla każdej pary godzin (jedna para to jeden dzień, czyli np. poniedziałek) funkcja SprawdzGodzine zwróci prawdę, 
+        /// to wykorzystujemy funkcję zamianaczasu dla każdej godziny. Następnie jeśli wartości w textboxach są uzupełnione oraz nie istnieje lekarz o konkretnym peselu, bądź nie istnieje lekarz (ale istnieje pacjent), którego wszystkie wartości zostały
+        /// wprowadzone w textboxach takie jakie ma (np. imie z textboxu odpowiada imieniu pacjenta), to tworzy nam lekarza wraz z godzinami, w których pracuje. Jeśli w danym dniu nie pracuje (czyli została wprowadzona wartość "" w Textboxie
+        /// pn1 oraz Textboxie pn2, to usuwa nam poszczególny dzień tygodnia ze słownika odpowiadającego za przechowywanie godzin, w których lekarz pracuje).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddDocl_Click(object sender, RoutedEventArgs e)
         {
             string input = TxtBoxpn1.Text;
@@ -714,6 +875,15 @@ namespace Przychodnia_finally
             }
         }
 
+        private void Click_Haslo(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Funkcja odpowiada za widocznosc poszczegolnych TextBoxów, list, itd. 
+        /// </summary>
+        /// <param name="visiblity"></param>
         private void WidocznoscDodaniaLekarza(bool visiblity)
         {
             if (visiblity)

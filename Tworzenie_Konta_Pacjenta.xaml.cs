@@ -5,23 +5,40 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using System;
 
+
 namespace Przychodnia_finally
 {
+
     /// <summary>
-    /// Interaction logic for Tworzenie_Konta_Pacjenta.xaml
+    /// W klasie Tworzenie_Konta_Pacjenta tworzymy pole Placowka p i tworzymy jej instancję.
     /// </summary>
     public partial class Tworzenie_Konta_Pacjenta : Window
     {
-        Placowka p;
+        Placowka p = new();
+
+        /// <summary>
+        /// Konstruktor nieparametryczny odczytujący z pliku "przychodnia.xml" obiekt placowka i przypisujący go do p.
+        /// </summary>
         public Tworzenie_Konta_Pacjenta()
         {
+            p = Placowka.OdczytDC("przychodnia.xml");
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Konstruktor parametryczny zawierający argument plaówka. Przypisuje go do p.
+        /// </summary>
+        /// <param name="placowka"></param>
         public Tworzenie_Konta_Pacjenta(Placowka placowka) : this()
         {
             p = placowka;
         }
-        //Funkcja przycisku reset
+
+        /// <summary>
+        /// Funckja powodująca zresetowanie wartości wpisanych przez użytkownika i przypisanie konkretnym polom pewnych wartości.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             Imie.Text = "Jan";
@@ -31,35 +48,75 @@ namespace Przychodnia_finally
             Plec.Text = "Man";
             PasswordHidden.Password = "";
         }
-        //Funkcja przycisku wroc
+
+        /// <summary>
+        /// Funkcja umożliwiająca powrót do okienka logowania.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WrocButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow objSecondWindow = new MainWindow(p);
             this.Visibility = Visibility.Hidden;
             objSecondWindow.Show();
         }
-        //Funkcje usunięcia wartości poprzez podwójne kliknięcie
+
+        /// <summary>
+        /// Funkcja umożliwiająca usuwanie wartości z pola tekstowego poprzez podwójne kliknięcie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Click_Imie(object sender, RoutedEventArgs e)
         {
             Imie.Text = "";
         }
+
+        /// <summary>
+        /// Funkcja umożliwiająca usuwanie wartości z pola tekstowego poprzez podwójne kliknięcie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void Click_Nazwisko(object sender, RoutedEventArgs e)
         {
             Nazwisko.Text = "";
         }
+
+        /// <summary>
+        /// Funkcja umożliwiająca usuwanie wartości z pola tekstowego poprzez podwójne kliknięcie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Click_DataUrodzenia(object sender, RoutedEventArgs e)
         {
             Data_Urodzenia.Text = "";
         }
+
+        /// <summary>
+        /// Funkcja umożliwiająca usuwanie wartości z pola tekstowego poprzez podwójne kliknięcie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Click_Pesel(object sender, RoutedEventArgs e)
         {
             Pesel.Text = "";
         }
+
+        /// <summary>
+        /// Funkcja umożliwiająca usuwanie wartości z pola tekstowego poprzez podwójne kliknięcie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Click_Haslo(object sender, RoutedEventArgs e)
         {
             PasswordHidden.Password = "";
         }
-        //Funkcja przycisku zapisz
+        /// <summary>
+        /// Funkcja powodująca utworzenie konta jeśli wprowadzone przez nas dane spełniają określone warunki.Pola nie mogą być puste iraz nie może już istnieś konto o danym peselu.
+        /// W przypadku błędów pojawi się odpowiedni komunikat. Po prawidłowym utworzeniu konta zostaniemy przekirowani do okienka logowania.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ZapiszButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -185,9 +242,32 @@ namespace Przychodnia_finally
                 MessageBox.Show("Fill the fields");
             }
         }
+        /// <summary>
+        /// Funkcja wywołująca w sobie funkcję ShowPasswordFunction() po nakliknięciu przycisku myszy na obrazek oka.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e) => ShowPasswordFunction();
+
+        /// <summary>
+        /// Funkcja wywołująca w sobie funkcję ShowPasswordFunction() po odkliknięciu przycisku myszy na obrazek oka.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e) => HidePasswordFunction();
+
+        /// <summary>
+        /// Funkcja wywołująca w sobie funkcję ShowPasswordFunction() kiedy kursor jest poza obrazkiem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_MouseLeave(object sender, MouseEventArgs e) => HidePasswordFunction();
+
+        /// <summary>
+        /// Funkcja, dzięki, której jesteśmy w stanie zobaczyć wpisane przez nas haslo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void ShowPasswordFunction()
         {
@@ -196,6 +276,11 @@ namespace Przychodnia_finally
             PasswordUnmask.Text = PasswordHidden.Password;
             Eye_Close.Source = new BitmapImage(new Uri(@"/oko2.jpg", UriKind.Relative));
         }
+        /// <summary>
+        /// Funkcja, dzięki, której nasze wpisane hasło jest zamaskowane.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void HidePasswordFunction()
         {
@@ -203,6 +288,12 @@ namespace Przychodnia_finally
             PasswordHidden.Visibility = Visibility.Visible;
             Eye_Close.Source = new BitmapImage(new Uri(@"/oko.png", UriKind.Relative));
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown1(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -210,6 +301,12 @@ namespace Przychodnia_finally
                 Nazwisko.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown2(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -217,6 +314,12 @@ namespace Przychodnia_finally
                 Data_Urodzenia.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown3(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -224,6 +327,12 @@ namespace Przychodnia_finally
                 Pesel.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown4(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -231,6 +340,12 @@ namespace Przychodnia_finally
                 Plec.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera kursor przeskakuje do kolejnego pola tekstowego.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown5(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -238,6 +353,12 @@ namespace Przychodnia_finally
                 PasswordHidden.Focus();
             }
         }
+
+        /// <summary>
+        /// Funnkcja dzięki, ktorej po naciśnięciu entera zostaje wykonana funkcja ZApiszButton_CLick.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown6(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -245,6 +366,5 @@ namespace Przychodnia_finally
                 ZapiszButton_Click(sender, e);
             }
         }
-
     }
 }

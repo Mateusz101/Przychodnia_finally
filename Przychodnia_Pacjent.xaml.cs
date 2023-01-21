@@ -9,14 +9,19 @@ using System.Linq;
 
 namespace Przychodnia_finally
 {
+
     /// <summary>
-    /// Interaction logic for Przychodnia.xaml
+    /// W klasie Przychodnia_Pacjent tworzymy pola Placowka p oraz pole Pacjent ZalogowanyPacjent oraz tworzymy istancję Pacjenta.
     /// </summary>
     public partial class Przychodnia_Pacjent : Window
     {
         Placowka p;
         Pacjent ZalogowanyPacjent = new();
 
+        /// <summary>
+        /// Konstruktor nieparametryczny tworzący istancję placowki, ładuję skompilowaną stronę, wywoluje funkcje odpowiedzialne za widoczność poszczególnych
+        /// elementów strony oraz dodaje wizyty zalogowanego pacjenta do listboxa o nazwie Lista.
+        /// </summary>
         public Przychodnia_Pacjent()
         {
             p = new();
@@ -27,6 +32,12 @@ namespace Przychodnia_finally
             WidocznoscHistory(false);
             Lista.ItemsSource = new ObservableCollection<Wizyta>(p.WizytyPacjenta(ZalogowanyPacjent.Pesel));
         }
+        /// <summary>
+        /// Konstruktor parametryczny o argumentach placowka oraz login. Przypisuje zalogowanemu pacjentowi obiekt pacjent znajdowany po peselu. Ustawia widocznosc obiektów znajdujących się 
+        /// w zakładce add visit.
+        /// </summary>
+        /// <param name="placowka"></param>
+        /// <param name="login"></param>
 
         public Przychodnia_Pacjent(Placowka placowka, string login) : this()
         {
@@ -34,6 +45,15 @@ namespace Przychodnia_finally
             p = placowka;
             WidocznoscVisit(true);
         }
+
+        /// <summary>
+        /// Konstruktor parametryczny przyjmujący 4 argumenty: placowka, login, haslo oraz typ. wykorzystywany przy zmianie hasła danego użytkownika konta.
+        /// Konstruktor ten ustawia widoczność elementów znajdujących się w zakladce Information.
+        /// </summary>
+        /// <param name="placowka"></param>
+        /// <param name="login"></param>
+        /// <param name="haslo"></param>
+        /// <param name="typ"></param>
         public Przychodnia_Pacjent(Placowka placowka, string login, string haslo, string typ) : this(placowka, login)
         {
             WidocznoscVisit(false);
@@ -43,6 +63,11 @@ namespace Przychodnia_finally
 
         }
 
+        /// <summary>
+        /// Funkcja przypisana do przycisku Add_visit. Po jego kliknięciu pojawi się okienko, posiadające elementy umozliwiające dodanie wizyty.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_visit_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscVisit(true);
@@ -51,6 +76,12 @@ namespace Przychodnia_finally
             WidocznoscHistory(false);
 
         }
+
+        /// <summary>
+        /// Funkcja przypisana do przycisku Visits_history. Po jego kliknięciu pojawi się okienko, posiadające elementy wskazujące wszystkie wizyty pacjenta.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Visits_history_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscInformations(false);
@@ -58,6 +89,12 @@ namespace Przychodnia_finally
             WidocznoscVisit(false);
             WidocznoscHistory(false);
         }
+
+        /// <summary>
+        ///  Funkcja przypisana do przycisku Patient_history. Po jego kliknięciu pojawi się okienko, posiadające elementy wskazujące historię wizyt oraz ich diagnozy.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Patient_History_Click(object sender, RoutedEventArgs e)
         {
             WidocznoscInformations(false);
@@ -67,6 +104,11 @@ namespace Przychodnia_finally
             history_ListBox.ItemsSource = new ObservableCollection<Diagnoza>(ZalogowanyPacjent.HistoriaWizyt);
         }
 
+        /// <summary>
+        ///  Funkcja przypisana do przycisku Information. Po jego kliknięciu pojawi się okienko, posiadające informacje o pacjencie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Informations_Button_Click_2(object sender, RoutedEventArgs e)
         {
             WidocznoscVisits(false);
@@ -75,7 +117,11 @@ namespace Przychodnia_finally
             WidocznoscHistory(false);
         }
 
-
+        /// <summary>
+        /// Funkcja ta pozwala na wylogowanie się zamknięcie okienka pacjenta oraz powrót
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void wylogowanie_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -84,7 +130,12 @@ namespace Przychodnia_finally
             objSecondWindow.Show();
         }
 
-        //Zmiana hasła
+        /// <summary>
+        /// Funkcja ktora przekierowuje nas do okienka zmiany hasła.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Zmiana_Hasla objSecondWindow = new Zmiana_Hasla(p, ZalogowanyPacjent);
@@ -92,6 +143,11 @@ namespace Przychodnia_finally
             objSecondWindow.Show();
         }
 
+        /// <summary>
+        /// Funkckja sortująca wizyty ze względu na ich datę.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSortujWizyty_Click(object sender, RoutedEventArgs e)
         {
             if (ZalogowanyPacjent != null)
@@ -100,6 +156,12 @@ namespace Przychodnia_finally
                 Lista.ItemsSource = new ObservableCollection<Wizyta>(p.WizytyPacjenta(ZalogowanyPacjent.Pesel));
             }
         }
+
+        /// <summary>
+        /// Funkcja umożliwiająca usunięcie wizyty.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUsun_Wizyte_Click(object sender, RoutedEventArgs e)
         {
             if (Lista.SelectedIndex > -1)
@@ -112,10 +174,22 @@ namespace Przychodnia_finally
                 l.Zaplanowane_Wizyty.Remove(new Tuple<DateTime, TimeSpan>(w.Data, w.Godzina));
             }
         }
+
+        /// <summary>
+        /// Funkcja dzięki, której jesteśmy w stanie zobaczyć wszystkie nasze wizyty.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnWszystkieWizyty_Click(object sender, RoutedEventArgs e)
         {
             Lista.ItemsSource = new ObservableCollection<Wizyta>(p.WizytyPacjenta(ZalogowanyPacjent.Pesel));
         }
+
+        /// <summary>
+        /// Funkcja umozliwiająca wyszukanie wizyt z danym lekarzem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSzukajLekarz_Click(object sender, RoutedEventArgs e)
         {
             if (Lekarze.SelectedItem != null)
@@ -125,6 +199,13 @@ namespace Przychodnia_finally
                 Lista.ItemsSource = new ObservableCollection<Wizyta>(p.WizytyPacjenta(ZalogowanyPacjent.Pesel).FindAll(w => w.Lekarz.Imie == p.Lekarze[Lekarze.SelectedIndex].Imie && w.Lekarz.Nazwisko == p.Lekarze[Lekarze.SelectedIndex].Nazwisko));
             }
         }
+
+        /// <summary>
+        /// Funkcja wiążąca zmianę daty na kalendarzu z comboboxem umożliwiającym wybór lekarza oraz wybór godzinę wizyty. Za każdym razem kiedy zmienimy datę na kalendarzu zmienią się godziny możliwe
+        /// do zarezerwoania na wizytę. Godziny te zależą od lekarza, od dnia tygodnia oraz od ich mozliwej wczęsniej rezerwacji przez inne osoby. Godziny zarezerwowane zostały odrzucone z możliwych do wyboru.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -177,6 +258,11 @@ namespace Przychodnia_finally
 
         }
 
+        /// <summary>
+        /// Przy zmianie lekarza zmieniają się rownież możliwe terminy do rezerwacji.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void wybor_Lekarza_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             List<TimeSpan> godziny = new()
@@ -227,6 +313,12 @@ namespace Przychodnia_finally
             }
 
         }
+
+        /// <summary>
+        /// Funkcja sprawdzająca ewentualne braki w uzupełnieniu pól. Jeśli wszystko jest uzupełnione poprawnie zostaje dodana wizyta dla pacjenta.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Lekarz lekarz = p.Lekarze.Find(w => w.Imie == p.Lekarze[wybor_Lekarza.SelectedIndex].Imie && w.Nazwisko == p.Lekarze[wybor_Lekarza.SelectedIndex].Nazwisko);
@@ -248,9 +340,10 @@ namespace Przychodnia_finally
 
         }
 
-
-
-        //Widoczność
+        /// <summary>
+        /// Funkcja ustawiająca konkretne elementy okienka na widoczne lub ukryte.
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscHistory(bool visibility)
         {
             if (visibility)
@@ -265,6 +358,10 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Funkcja ustawiająca konkretne elementy okienka na widoczne lub ukryte.
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscVisits(bool visibility)
         {
             if (visibility)
@@ -290,6 +387,11 @@ namespace Przychodnia_finally
                 Lekarze.Visibility = Visibility.Hidden;
             }
         }
+
+        /// <summary>
+        /// Funkcja ustawiająca konkretne elementy okienka na widoczne lub ukryte. Dodanie odpowiedniego zdjęcia w zależności od płci logowanej osoby.
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscInformations(bool visibility)
         {
             if (visibility)
@@ -343,6 +445,11 @@ namespace Przychodnia_finally
                 PasswordHidden.Visibility = Visibility.Hidden;
             }
         }
+
+        /// <summary>
+        /// Funkcja ustawiająca konkretne elementy okienka na widoczne lub ukryte.
+        /// </summary>
+        /// <param name="visibility"></param>
         private void WidocznoscVisit(bool visibility)
         {
             if (visibility)
@@ -390,11 +497,6 @@ namespace Przychodnia_finally
                 create_butto.Visibility = Visibility.Hidden;
                 Add_visit1.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

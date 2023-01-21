@@ -17,22 +17,36 @@ using System.Windows.Shapes;
 
 namespace Przychodnia_finally
 {
-
+    /// <summary>
+    /// Klasa Main
+    /// </summary>
     public partial class MainWindow : Window
     {
         Placowka p;
+
+        /// <summary>
+        /// Kontruktor domyślny tworzący obiekt placowka.
+        /// </summary>
         public MainWindow()
         {
             p = new();
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Konstruktor pobierający argument placowka.
+        /// </summary>
+        /// <param name="placówka"></param>
         public MainWindow(Placowka placówka) : this()
         {
             p = placówka;
         }
 
-        //Przycisk przekierowuje do okienka rejestracji pacjenta
+        /// <summary>
+        /// Przycisk przekierowujący do rejestracji pacjenta.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ZarejestrujSie_Button_Click(object sender, RoutedEventArgs e)
         {
             Tworzenie_Konta_Pacjenta objSecondWindow = new Tworzenie_Konta_Pacjenta(p);
@@ -41,7 +55,12 @@ namespace Przychodnia_finally
 
         }
 
-        //Zmiana wartości comboboxa decyduje o występowaniu przycisku rejestracji konta
+
+        /// <summary>
+        /// Zmiana wartości comboboxa decyduje o występowaniu przycisku rejestracji konta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Profesja_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Jesli  profesja rozna od pacjenta to przycisk rejestracji znika. W przeciwnym razie pojawia sie
@@ -55,10 +74,32 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Pokazuje hasło, jeśli przytrzymamy myszke na przycisku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e) => ShowPasswordFunction();
+
+        /// <summary>
+        /// Chowa hasło, jeśli puscimy myszke z przycisku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e) => HidePasswordFunction();
+
+        /// <summary>
+        /// Chowa hasło, jeśli opuścimy pole przycisku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_MouseLeave(object sender, MouseEventArgs e) => HidePasswordFunction();
 
+        /// <summary>
+        /// Przycisk z menu, który umożliwia nam zapisanie pliku.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuZapisz_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -71,6 +112,11 @@ namespace Przychodnia_finally
             }
         }
 
+        /// <summary>
+        /// Przycisk z menu, który umożliwia nam odczytanie pliku typu xml
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuOtworz_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -82,6 +128,9 @@ namespace Przychodnia_finally
                 p = Placowka.OdczytDC(filePath);
             }
         }
+        /// <summary>
+        /// Funkcja służąca za pokazanie hasła i zmienienia ikonki przycisku.
+        /// </summary>
         private void ShowPasswordFunction()
         {
             PasswordUnmask.Visibility = Visibility.Visible;
@@ -90,15 +139,25 @@ namespace Przychodnia_finally
             Eye_Close.Source = new BitmapImage(new Uri(@"img/oko2.jpg", UriKind.Relative));
         }
 
+        /// <summary>
+        /// Funkcja służąca za schowanie hasła i zmienienia ikonki przycisku.
+        /// </summary>
+
         private void HidePasswordFunction()
         {
             PasswordUnmask.Visibility = Visibility.Hidden;
             PasswordHidden.Visibility = Visibility.Visible;
             Eye_Close.Source = new BitmapImage(new Uri(@"/oko.png", UriKind.Relative));
         }
+
+        /// <summary>
+        /// Funcja służąca za zalogowanie się na dane konto. Jeśli logujący się wybrał ADMIN i wpisał hasło i login admina, to przekierowuje do okienka Przychodnia_ADMIN. Jeśli logujący wybrał pacjenta lub lekarza i wpisał dobre login i hasło
+        /// dla niego, to przekierowywało odpowiednio do okienka Przychodnia_Pacjent lub Przychodnia_Doktor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Zaloguj_Button_Click(object sender, RoutedEventArgs e)
         {
-            int ad = p.Konta.Count;
             if (Login_Text.Text.Length > 0 && PasswordHidden.Password.Length == 0)
             {
                 MessageBox.Show("Pole hasło nie może być puste!");
@@ -114,7 +173,7 @@ namespace Przychodnia_finally
             else
             {
                 string password = PasswordHidden.Password;
-                if (Login_Text.Text == "ADMIN" && password.ToString() == "ADMIN" && Profesja.Text.ToString() == "ADMIN")
+                if (Login_Text.Text == Admin.haslo && password.ToString() == Admin.haslo && Profesja.Text.ToString() == "ADMIN") //
                 {
                     MessageBox.Show("Logowanie poprawne");
                     Przychodnia_ADMIN objSecondWindow = new Przychodnia_ADMIN(p);
@@ -170,6 +229,11 @@ namespace Przychodnia_finally
                 }
             }
         }
+        /// <summary>
+        /// Po przyciśnięciu entera, przekierowuje nas do kolejnego pola
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -177,6 +241,12 @@ namespace Przychodnia_finally
                 PasswordHidden.Focus();
             }
         }
+
+        /// <summary>
+        /// Po przycisnieciu entera, przekierowuje nad do kolejnego pola.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyTextBox_KeyDown2(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
