@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="img\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="apointments.png" />
+	  <None Remove="ATlas logo.jpg" />
+	  <None Remove="dashboard.jpg" />
+	  <None Remove="doctors.png" />
+	  <None Remove="Google_Contacts_logo.png" />
+	  <None Remove="img\logout 3.png" />
+	  <None Remove="img\oko.png" />
+	  <None Remove="img\oko2.jpg" />
+	  <None Remove="inforamcje.png" />
+	  <None Remove="logout 3.png" />
+	  <None Remove="Man avatar.png" />
+	  <None Remove="oko.png" />
+	  <None Remove="oko2.jpg" />
+	  <None Remove="woman2.png" />
+	  <None Remove="womendoc.jpg" />
+	  <None Remove="zdj3.png" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PrzychodniaGIT">
+      <HintPath>..\PrzychodniaGIT\bin\Debug\net6.0\PrzychodniaGIT.dll</HintPath>
+    </Reference>
+    <Reference Include="zespol">
+      <HintPath>..\zespol\zespol\bin\Debug\net6.0\zespol.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="apointments.png" />
+    <Resource Include="ATlas logo.jpg" />
+    <Resource Include="dashboard.jpg" />
+    <Resource Include="doctors.png" />
+    <Resource Include="Google_Contacts_logo.png" />
+    <Resource Include="img\logout 3.png" />
+    <Resource Include="img\oko.png" />
+    <Resource Include="img\oko2.jpg" />
+    <Resource Include="inforamcje.png" />
+    <Resource Include="logout 3.png" />
+    <Resource Include="Man avatar.png" />
+    <Resource Include="oko.png" />
+    <Resource Include="oko2.jpg" />
+    <Resource Include="woman2.png" />
+    <Resource Include="womendoc.jpg" />
+    <Resource Include="zdj3.png" />
+  </ItemGroup>
+
+</Project>
