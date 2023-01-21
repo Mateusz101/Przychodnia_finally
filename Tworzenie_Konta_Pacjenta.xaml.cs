@@ -12,10 +12,9 @@ namespace Przychodnia_finally
     /// </summary>
     public partial class Tworzenie_Konta_Pacjenta : Window
     {
-        Placowka p = new();
+        Placowka p;
         public Tworzenie_Konta_Pacjenta()
         {
-            p = Placowka.OdczytDC("przychodnia.xml");
             InitializeComponent();
         }
         public Tworzenie_Konta_Pacjenta(Placowka placowka) : this()

@@ -473,11 +473,11 @@ namespace Przychodnia_finally
             if (TimeSpan.TryParse(t1, out time) && TimeSpan.TryParse(t2, out time2))
             {
 
-                if (time < p.GodzinaOtwarcia|| time > p.GodzinaZamkniecia || time2 < p.GodzinaOtwarcia || time2 > p.GodzinaZamkniecia)
+                if (time < p.GodzinaOtwarcia || time > p.GodzinaZamkniecia || time2 < p.GodzinaOtwarcia || time2 > p.GodzinaZamkniecia)
                 {
                     return false;
                 }
-                else if (time >= time2 || (time.Minutes != 30 && time.Minutes != 0) || (time2.Minutes!=0 && time2.Minutes!=30))
+                else if (time >= time2 || (time.Minutes != 30 && time.Minutes != 0) || (time2.Minutes != 0 && time2.Minutes != 30))
                 {
                     return false;
                 }
@@ -500,7 +500,7 @@ namespace Przychodnia_finally
             {
                 return new TimeSpan(12, 0, 0);
             }
-            else if (TimeSpan.TryParse(czas, out t)) 
+            else if (TimeSpan.TryParse(czas, out t))
             {
                 return t;
             }
@@ -511,9 +511,9 @@ namespace Przychodnia_finally
         }
         private void BtnAddDocl_Click(object sender, RoutedEventArgs e)
         {
-            string input = TxtBoxpn1.Text; 
+            string input = TxtBoxpn1.Text;
             List<string> textboxy = new()
-            { TxtBoxpn1.Text, TxtBoxpn2.Text, TxtBoxwt1.Text, TxtBoxwt2.Text, TxtBoxsr1.Text, TxtBoxsr2.Text, TxtBoxczw1.Text, 
+            { TxtBoxpn1.Text, TxtBoxpn2.Text, TxtBoxwt1.Text, TxtBoxwt2.Text, TxtBoxsr1.Text, TxtBoxsr2.Text, TxtBoxczw1.Text,
                 TxtBoxczw2.Text, TxtBoxpt1.Text, TxtBoxpt2.Text, TxtBoxsob1.Text, TxtBoxsob2.Text, TxtBoxnd1.Text, TxtBoxnd2.Text };
 
             bool pn = SprawdzGodzine(textboxy[0], textboxy[1]);
@@ -524,11 +524,11 @@ namespace Przychodnia_finally
             bool sob = SprawdzGodzine(textboxy[10], textboxy[11]);
             bool nd = SprawdzGodzine(textboxy[12], textboxy[13]);
 
-            if(pn && wt && sr && czw && pt && sob && nd)
+            if (pn && wt && sr && czw && pt && sob && nd)
             {
                 TimeSpan tim1 = zamianaczasu(TxtBoxpn1.Text);
                 TimeSpan tim2 = zamianaczasu(TxtBoxpn2.Text);
-                TimeSpan tim3= zamianaczasu(TxtBoxwt1.Text);
+                TimeSpan tim3 = zamianaczasu(TxtBoxwt1.Text);
                 TimeSpan tim4 = zamianaczasu(TxtBoxwt2.Text);
                 TimeSpan tim5 = zamianaczasu(TxtBoxsr1.Text);
                 TimeSpan tim6 = zamianaczasu(TxtBoxsr2.Text);
@@ -564,7 +564,7 @@ namespace Przychodnia_finally
                         return;
                     }
 
-                    if(p.Lekarze.Find(lek => lek.Pesel == TxtBoxPesell.Text)==null && p.Pacjenci.Find(pac=>pac.Pesel == TxtBoxPesell.Text) == null)
+                    if (p.Lekarze.Find(lek => lek.Pesel == TxtBoxPesell.Text) == null && p.Pacjenci.Find(pac => pac.Pesel == TxtBoxPesell.Text) == null)
                     {
                         EnumPlec plecc = new();
                         if (Plecl.Text == "Woman")
@@ -623,7 +623,7 @@ namespace Przychodnia_finally
                         return;
                     }
 
-                    else if(p.Lekarze.Find(lek => lek.Pesel == TxtBoxPesell.Text) != null)
+                    else if (p.Lekarze.Find(lek => lek.Pesel == TxtBoxPesell.Text) != null)
                     {
                         MessageBox.Show("Doctor already exists");
                         return;
@@ -634,7 +634,7 @@ namespace Przychodnia_finally
                         Pacjent pac = p.Pacjenci.Find(p => p.Pesel == TxtBoxPesell.Text);
                         EnumPlec plecc = new();
 
-                        if(Plecl.Text == "Woman")
+                        if (Plecl.Text == "Woman")
                         {
                             plecc = EnumPlec.K;
                         }
@@ -642,14 +642,14 @@ namespace Przychodnia_finally
                         {
                             plecc = EnumPlec.M;
                         }
-                        
+
                         string haslo = p.Konta[pac.Pesel];
                         Lekarz lekarztestowy = new(TxtBoxImiel.Text, TxtBoxNazwiskol.Text, TxtBoxData_Urodzenial.Text, TxtBoxPesell.Text, plecc);
                         if (pac.Imie == lekarztestowy.Imie && pac.Nazwisko == lekarztestowy.Nazwisko && pac.DataUrodzenia == lekarztestowy.DataUrodzenia && pac.Plec == lekarztestowy.Plec && haslo == TxtBoxPasswordl.Password)
                         {
-                                 Lekarz lek = new(TxtBoxImiel.Text, TxtBoxNazwiskol.Text, TxtBoxData_Urodzenial.Text, TxtBoxPesell.Text, plecc, TxtBoxfunkcja.Text,
-                                              new Dictionary<DayOfWeek, Tuple<TimeSpan, TimeSpan>>
-                               {
+                            Lekarz lek = new(TxtBoxImiel.Text, TxtBoxNazwiskol.Text, TxtBoxData_Urodzenial.Text, TxtBoxPesell.Text, plecc, TxtBoxfunkcja.Text,
+                                         new Dictionary<DayOfWeek, Tuple<TimeSpan, TimeSpan>>
+                          {
                                     { DayOfWeek.Monday, new Tuple<TimeSpan, TimeSpan>(tim1, tim2) },
                                     { DayOfWeek.Tuesday, new Tuple<TimeSpan, TimeSpan>(tim3, tim4) },
                                     { DayOfWeek.Wednesday, new Tuple<TimeSpan, TimeSpan>(tim5, tim6) },
@@ -657,9 +657,9 @@ namespace Przychodnia_finally
                                     { DayOfWeek.Friday, new Tuple<TimeSpan, TimeSpan>(tim9, tim10) },
                                     { DayOfWeek.Saturday, new Tuple<TimeSpan, TimeSpan>(tim11, tim12) },
                                     { DayOfWeek.Sunday, new Tuple<TimeSpan, TimeSpan>(tim13, tim14) }
-                               });
+                          });
 
-                            if(tim1.Hours == 12 && tim2.Hours == 12)
+                            if (tim1.Hours == 12 && tim2.Hours == 12)
                             {
                                 lek.GodzinyPracy.Remove(DayOfWeek.Monday);
                             }
@@ -708,7 +708,7 @@ namespace Przychodnia_finally
                 }
 
             }
-            else 
+            else
             {
                 MessageBox.Show("Something went wrong.");
             }
@@ -716,8 +716,8 @@ namespace Przychodnia_finally
 
         private void WidocznoscDodaniaLekarza(bool visiblity)
         {
-            if (visiblity) 
-            { 
+            if (visiblity)
+            {
                 TxtBoxImiel.Visibility = Visibility.Visible;
                 TxtBoxNazwiskol.Visibility = Visibility.Visible;
                 TxtBoxData_Urodzenial.Visibility = Visibility.Visible;
@@ -805,3 +805,5 @@ namespace Przychodnia_finally
         }
     }
 }
+
+
